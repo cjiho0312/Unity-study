@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Animals : MonoBehaviour
 {
-    public Ability ability;
+    [SerializeField] Ability ability;
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class Animals : MonoBehaviour
 
         Debug.Log("Awake");
 
-        ability = new Ability();
+        Debug.Log(ability.Strength);
     }
 
     private void OnEnable()
@@ -54,4 +54,19 @@ public class Animals : MonoBehaviour
 
         Debug.Log("Late update");
     }
+
+    private void OnDisable()
+    {
+        // OnDisbale : 객체가 비활성화 되었을 때 호출되는 이벤트 함수입니다.
+
+        Debug.Log("OnDisable");
+    }
+
+    private void OnDestroy()
+    {
+        // OnDestroy : 객체가 삭제되었을 때 호출되는 이벤트 함수입니다.
+
+        Debug.Log("OnDestroy");
+    }
+
 }
