@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwordScript : MonoBehaviour
+public class SwordScript : Item
 {
     [SerializeField] MeshRenderer meshRenderer;
 
@@ -12,5 +12,15 @@ public class SwordScript : MonoBehaviour
     void Start()
     {
         meshRenderer.material.color = Color.grey;
+    }
+
+    private void Update()
+    {
+
+    }
+
+    public override void Activate()
+    {
+        Debug.Log("Using Sword");
     }
 }

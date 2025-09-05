@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class GunScript : Item
+public class HatScript : Item
 {
     public override void Activate()
     {
-        Debug.Log("Using Gun");
+        Debug.Log("Using Hat");
     }
 }

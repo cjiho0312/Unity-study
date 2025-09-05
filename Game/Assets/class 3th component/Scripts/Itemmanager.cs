@@ -2,34 +2,41 @@ using UnityEngine;
 
 public class Itemmanager : MonoBehaviour
 {
-    [SerializeField] GameObject[] gameObjects; 
-    int gameObjectCount = 0;
+    [SerializeField] int count;
+    [SerializeField] Item[] gameObjects;
 
     void Start()
     {
         for (int i = 0; i < gameObjects.Length; i++)
         {
-            gameObjects[i].SetActive(false);
+            gameObjects[i].transform.gameObject.SetActive(false);
         }
+
+        count = gameObjects.Length - 1;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (gameObjectCount >= gameObjects.Length - 1)
-            {
-                gameObjectCount = 0;
-            }
-            if (gameObject[gameObjectCount - 1])
-            {
-
-            }
-
-            gameObjects[gameObjectCount++].SetActive(true);
+            Swap();
+        }
 
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            gameObjects[count].Activate();
             
         }
     }
+
+    void Swap()
+    {
+        gameObjects[count].transform.gameObject.SetActive(false);
+
+        count = (count + 1) % gameObjects.Length;
+
+        gameObjects[count].transform.gameObject.SetActive(true);
+    }
+
 }
