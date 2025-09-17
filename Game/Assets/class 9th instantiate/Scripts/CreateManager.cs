@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +8,15 @@ public class CreateManager : MonoBehaviour
     [SerializeField] GameObject prefab;
     [SerializeField] List <GameObject> monsterList;
     [SerializeField] int count;
-    [SerializeField] float time;
-
-    int monsterEvent;
-
+    int activeMonster;
+    int index;
 
     void Start()
     {
         Initialized();
-        time = 0;
-        monsterEvent = 0;
+
+        StartCoroutine(Coroutine());
+
     }
 
     private void Initialized()
@@ -33,22 +33,40 @@ public class CreateManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    IEnumerator Coroutine()
     {
-        time += Time.deltaTime;
+        activeMonster = 0;
 
-        if (time >= 5.0f)
+        while (true)
         {
-            Debug.Log("Call");
-            
-            if (monsterEvent < count)
+            yield return new WaitForSeconds(5.0f);
+
+            index = Random.Range(0, count);
+
+            if (activeMonster == count)
             {
-                monsterList[monsterEvent].SetActive(true);
-                monsterEvent++;
+                Debug.Log("Exit");
+                yield break;
             }
 
-            time = 0;
-        }
+            if (monsterList[index].activeSelf == true)
+            {
+                while (monsterList[index].activeSelf == true)
+                {
+                    if (index >= count - 1)
+                    {
+                        index = 0;
+                    }
+                    else
+                    {
+                        index++;
+                    }
+                }
+            }
 
+            monsterList[index].SetActive(true);
+
+            activeMonster++;
+        }
     }
 }
