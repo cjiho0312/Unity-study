@@ -2,22 +2,24 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour
 {
-    [SerializeField] Rigidbody rigidbody;
-
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger Enter");
+        if (other.gameObject.CompareTag("Authorize"))
+        {
+            other.gameObject.GetComponent<Control>().Soar();
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("Trigger Stay");
-
-        Jump();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Trigger Exit");
+        if (other.gameObject.CompareTag("Authorize"))
+        {
+            other.gameObject.GetComponent<Control>().Revert();
+        }
     }
 }
