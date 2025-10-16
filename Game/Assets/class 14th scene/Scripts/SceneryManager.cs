@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,10 +10,22 @@ public class SceneryManager : MonoBehaviour
     [SerializeField] Slider progress;
     [SerializeField] float displayProgress;
 
+
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        var obj = FindObjectsOfType<SceneryManager>();
+
+        if (obj.Length <= 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
+
 
     /*
     public void SceneMove(int buildIndex)
@@ -26,6 +39,7 @@ public class SceneryManager : MonoBehaviour
     {
         StartCoroutine(TransitionScene(buildIndex));
     }
+
 
     public IEnumerator TransitionScene(int index)
     {
@@ -53,9 +67,9 @@ public class SceneryManager : MonoBehaviour
 
             if (asyncOperation.progress >= 0.9f)
             {
-                displayProgress = Mathf.Lerp(progress.value, 1.0f, Time.deltaTime);
+                displayProgress = Mathf.Lerp(progress.value, 1.0f, Time.deltaTime * 3);
 
-                if (progress.value >= 0.99f)
+                if (progress.value >= 0.999f)
                 {
                     asyncOperation.allowSceneActivation = true;
                 }
@@ -68,6 +82,4 @@ public class SceneryManager : MonoBehaviour
         
         Loadscreen.SetActive(false);
     }
-
-
 }
